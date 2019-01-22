@@ -1,7 +1,7 @@
 name: worm_indicator
 description: A pageview indicator
 version: 0.0.1
-author: phuchuynhStrong
+author: phuchuynhStrong <phuchuynh.strong@gmail.com>
 homepage: https://github.com/phuchuynhStrong/worm_indicator
 
 environment:

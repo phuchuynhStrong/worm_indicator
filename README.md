@@ -1,14 +1,38 @@
-# worm_indicator
+# Worm Indicator
 
 A pageview indicator
 
+## Features
+
+- Use with PageView to display scroll progress
+- Customize your indicator style, transform time
+
 ## Getting Started
 
-This project is a starting point for a Dart
-[package](https://flutter.io/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
+Make sure you add the lib dependency in your flutter project.
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+```
+dependencies:
+  worm_indicator: 0.0.1
+```
+
+Then you should run `flutter packages get` to update your packages in your IDE.
+
+## Example Project
+
+Checkout the project inside `example` folder.
+
+## Usage
+
+```
+WormIndicator(
+  dotsLength: _pages.length,
+  dotsSize: 16,
+  dotsSpacing: 8,
+  onPageChange: _pageViewController,
+)
+```
+
+## Support
+
+Email me at `phuchuynh.strong@gmail.com` for any support needed
