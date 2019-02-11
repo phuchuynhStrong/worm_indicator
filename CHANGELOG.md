@@ -6,3 +6,7 @@ Initial Release
 
 - Add worm animation
 - Update README and Example
+
+## [0.0.4] - Feb 11 2019
+
+- Update README

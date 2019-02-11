@@ -21,7 +21,7 @@ dependencies:
   cupertino_icons: ^0.1.2
 
   # indicator
-  worm_indicator: ^0.0.3
+  worm_indicator: ^0.0.4
 
 dev_dependencies:
   flutter_test:
