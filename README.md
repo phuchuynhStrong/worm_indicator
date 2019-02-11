@@ -21,6 +21,10 @@ Then you should run `flutter packages get` to update your packages in your IDE.
 
 Checkout the project inside `example` folder.
 
+Screenshot:
+
+![screenshot](https://github.com/phuchuynhStrong/worm_indicator/raw/master/example.gif "Screenshots")
+
 ## Usage
 
 ```
