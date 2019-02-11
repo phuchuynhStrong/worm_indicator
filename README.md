@@ -5,7 +5,6 @@ A pageview indicator
 ## Features
 
 - Use with PageView to display scroll progress
-- Customize your indicator style, transform time
 
 ## Getting Started
 
