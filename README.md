@@ -33,6 +33,7 @@ WormIndicator(
 ```
 
 Properties:
+
 |Name|Usage|Type|
 |---|---|---|
 |`length`| Number of dots |`int`|
