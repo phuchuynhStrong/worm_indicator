@@ -6,34 +6,32 @@ import 'dot.dart';
 class WormIndicator extends StatefulWidget {
   WormIndicator({
     Key key,
-    @required this.dotsLength,
-    this.dotsSpacing = 8,
-    this.dotsSize = 16,
-    this.onPageChange,
-    this.dotsColor = const Color(0xff808080),
+    @required this.length,
+    this.spacing = 8,
+    this.size = 16,
+    this.controller,
+    this.color = const Color(0xff808080),
+    this.indicatorColor = const Color(0xff35affc),
   }) : super(key: key);
 
-  final int dotsLength;
-  final dotsSize;
-  final dotsSpacing;
-  final int dotsStrokeWidth = 2;
-  final int dotsCornerRadius = 8;
-  final PageController onPageChange;
-  final Color dotIndicatorColor = Colors.white;
-  final Color dotsColor;
-  final Color dotsStrokeColor = Color(0xff35affc);
+  final int length;
+  final size;
+  final spacing;
+  final PageController controller;
+  final Color color;
+  final Color indicatorColor;
   @override
   State<StatefulWidget> createState() => _DotsIndicatorState();
 }
 
 class _DotsIndicatorState extends State<WormIndicator> {
   Widget buildDot(color, index) {
-    if ((widget.dotsLength % 2 == 1 && index == (widget.dotsLength ~/ 2)) ||
+    if ((widget.length % 2 == 1 && index == (widget.length ~/ 2)) ||
         index == -1) {
       return Container(
         child: Container(
-          width: widget.dotsSize.toDouble(),
-          height: widget.dotsSize.toDouble(),
+          width: widget.size.toDouble(),
+          height: widget.size.toDouble(),
         ),
         decoration: BoxDecoration(
           color: color ?? Color(0xff35affc),
@@ -42,12 +40,12 @@ class _DotsIndicatorState extends State<WormIndicator> {
       );
     }
 
-    if (widget.dotsLength % 2 == 1 && index < (widget.dotsLength ~/ 2)) {
+    if (widget.length % 2 == 1 && index < (widget.length ~/ 2)) {
       return Container(
-        margin: EdgeInsets.only(right: widget.dotsSpacing.toDouble()),
+        margin: EdgeInsets.only(right: widget.spacing.toDouble()),
         child: Container(
-          width: widget.dotsSize.toDouble(),
-          height: widget.dotsSize.toDouble(),
+          width: widget.size.toDouble(),
+          height: widget.size.toDouble(),
         ),
         decoration: BoxDecoration(
           color: color ?? Color(0xff35affc),
@@ -56,12 +54,12 @@ class _DotsIndicatorState extends State<WormIndicator> {
       );
     }
 
-    if (widget.dotsLength % 2 == 1 && index > (widget.dotsLength ~/ 2)) {
+    if (widget.length % 2 == 1 && index > (widget.length ~/ 2)) {
       return Container(
-        margin: EdgeInsets.only(left: widget.dotsSpacing.toDouble()),
+        margin: EdgeInsets.only(left: widget.spacing.toDouble()),
         child: Container(
-          width: widget.dotsSize.toDouble(),
-          height: widget.dotsSize.toDouble(),
+          width: widget.size.toDouble(),
+          height: widget.size.toDouble(),
         ),
         decoration: BoxDecoration(
           // color: Color(0xff35affc),
@@ -71,13 +69,13 @@ class _DotsIndicatorState extends State<WormIndicator> {
       );
     }
 
-    if ((widget.dotsLength % 2 == 0 && index < (widget.dotsLength ~/ 2)) ||
+    if ((widget.length % 2 == 0 && index < (widget.length ~/ 2)) ||
         index == -1) {
       return Container(
-        margin: EdgeInsets.only(right: widget.dotsSpacing.toDouble()),
+        margin: EdgeInsets.only(right: widget.spacing.toDouble()),
         child: Container(
-          width: widget.dotsSize.toDouble(),
-          height: widget.dotsSize.toDouble(),
+          width: widget.size.toDouble(),
+          height: widget.size.toDouble(),
         ),
         decoration: BoxDecoration(
           color: color ?? Color(0xff35affc),
@@ -86,12 +84,12 @@ class _DotsIndicatorState extends State<WormIndicator> {
       );
     }
 
-    if (widget.dotsLength % 2 == 0 && index > (widget.dotsLength ~/ 2)) {
+    if (widget.length % 2 == 0 && index > (widget.length ~/ 2)) {
       return Container(
-        margin: EdgeInsets.only(left: widget.dotsSpacing.toDouble()),
+        margin: EdgeInsets.only(left: widget.spacing.toDouble()),
         child: Container(
-          width: widget.dotsSize.toDouble(),
-          height: widget.dotsSize.toDouble(),
+          width: widget.size.toDouble(),
+          height: widget.size.toDouble(),
         ),
         decoration: BoxDecoration(
           color: color ?? Color(0xff35affc),
@@ -102,8 +100,8 @@ class _DotsIndicatorState extends State<WormIndicator> {
 
     return Container(
       child: Container(
-        width: widget.dotsSize.toDouble(),
-        height: widget.dotsSize.toDouble(),
+        width: widget.size.toDouble(),
+        height: widget.size.toDouble(),
       ),
       decoration: BoxDecoration(
         color: color ?? Color(0xff808080),
@@ -114,8 +112,8 @@ class _DotsIndicatorState extends State<WormIndicator> {
 
   List<Widget> _renderNormalDots() {
     var listDots = List<Widget>();
-    for (int i = 0; i < widget.dotsLength; i++) {
-      listDots.add(buildDot(widget.dotsColor ?? (0xff808080), i));
+    for (int i = 0; i < widget.length; i++) {
+      listDots.add(buildDot(widget.color ?? (0xff808080), i));
     }
     return listDots;
   }
@@ -134,11 +132,11 @@ class _DotsIndicatorState extends State<WormIndicator> {
           ),
           Container(
             child: DotInstance(
-              dotsLength: widget.dotsLength,
-              listenable: widget.onPageChange,
-              dotsSize: widget.dotsSize,
-              dotsSpacing: widget.dotsSpacing,
-              color: Color(0xff35affc),
+              length: widget.length,
+              listenable: widget.controller,
+              size: widget.size,
+              spacing: widget.spacing,
+              color: widget.indicatorColor,
             ),
           ),
         ],
