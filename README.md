@@ -27,8 +27,12 @@ Checkout the project inside `example` folder.
 WormIndicator(
   length: 3,
   controller: _controller,
-  size: 16,
-  spacing: 8,
+  shape: Shape(
+    16, // Width
+    16, // Height
+    8, // Spacing
+    DotShape.Circle
+  ),
 ),
 ```
 
@@ -38,10 +42,18 @@ Properties:
 |---|---|---|
 |`length`| Number of dots |`int`|
 |`controller`| PageView controller |`PageController`|
-|`size`| Size of a dot |`int`|
-|`spacing`| Spacing between dots |`int`|
+|`shape`| Shape of dots |`Shape`|
 |`color`| Color of normal dots |`Color`|
 |`indicatorColor`| Color of current active dot |`Color`|
+
+Shape Constructor:
+
+|Name|Usage|Type|
+|---|---|---|
+|`width`| Width of dot |`double`|
+|`height`| Height of dot |`double`|
+|`spacing`| Spacing between dots |`double`|
+|`shape`| Shape of dots. One of Circle, Rectangle and Square |`DotShape`|
 
 ## Support
 
