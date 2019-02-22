@@ -1,25 +1,26 @@
 library worm_indicator;
 
 import 'package:flutter/material.dart';
+
 import 'dot.dart';
+import 'shape.dart';
 
 class WormIndicator extends StatefulWidget {
   WormIndicator({
     Key key,
     @required this.length,
-    this.spacing = 8,
-    this.size = 16,
     this.controller,
+    this.shape,
     this.color = const Color(0xff808080),
     this.indicatorColor = const Color(0xff35affc),
   }) : super(key: key);
 
   final int length;
-  final size;
-  final spacing;
   final PageController controller;
   final Color color;
   final Color indicatorColor;
+  final Shape shape;
+
   @override
   State<StatefulWidget> createState() => _DotsIndicatorState();
 }
@@ -30,8 +31,8 @@ class _DotsIndicatorState extends State<WormIndicator> {
         index == -1) {
       return Container(
         child: Container(
-          width: widget.size.toDouble(),
-          height: widget.size.toDouble(),
+          width: widget.shape.width,
+          height: widget.shape.width,
         ),
         decoration: BoxDecoration(
           color: color ?? Color(0xff35affc),
@@ -42,10 +43,10 @@ class _DotsIndicatorState extends State<WormIndicator> {
 
     if (widget.length % 2 == 1 && index < (widget.length ~/ 2)) {
       return Container(
-        margin: EdgeInsets.only(right: widget.spacing.toDouble()),
+        margin: EdgeInsets.only(right: widget.shape.spacing),
         child: Container(
-          width: widget.size.toDouble(),
-          height: widget.size.toDouble(),
+          width: widget.shape.width,
+          height: widget.shape.width,
         ),
         decoration: BoxDecoration(
           color: color ?? Color(0xff35affc),
@@ -56,10 +57,10 @@ class _DotsIndicatorState extends State<WormIndicator> {
 
     if (widget.length % 2 == 1 && index > (widget.length ~/ 2)) {
       return Container(
-        margin: EdgeInsets.only(left: widget.spacing.toDouble()),
+        margin: EdgeInsets.only(left: widget.shape.spacing),
         child: Container(
-          width: widget.size.toDouble(),
-          height: widget.size.toDouble(),
+          width: widget.shape.width,
+          height: widget.shape.width,
         ),
         decoration: BoxDecoration(
           // color: Color(0xff35affc),
@@ -72,10 +73,10 @@ class _DotsIndicatorState extends State<WormIndicator> {
     if ((widget.length % 2 == 0 && index < (widget.length ~/ 2)) ||
         index == -1) {
       return Container(
-        margin: EdgeInsets.only(right: widget.spacing.toDouble()),
+        margin: EdgeInsets.only(right: widget.shape.spacing),
         child: Container(
-          width: widget.size.toDouble(),
-          height: widget.size.toDouble(),
+          width: widget.shape.width,
+          height: widget.shape.width,
         ),
         decoration: BoxDecoration(
           color: color ?? Color(0xff35affc),
@@ -86,10 +87,10 @@ class _DotsIndicatorState extends State<WormIndicator> {
 
     if (widget.length % 2 == 0 && index > (widget.length ~/ 2)) {
       return Container(
-        margin: EdgeInsets.only(left: widget.spacing.toDouble()),
+        margin: EdgeInsets.only(left: widget.shape.spacing),
         child: Container(
-          width: widget.size.toDouble(),
-          height: widget.size.toDouble(),
+          width: widget.shape.width,
+          height: widget.shape.width,
         ),
         decoration: BoxDecoration(
           color: color ?? Color(0xff35affc),
@@ -100,8 +101,8 @@ class _DotsIndicatorState extends State<WormIndicator> {
 
     return Container(
       child: Container(
-        width: widget.size.toDouble(),
-        height: widget.size.toDouble(),
+        width: widget.shape.width,
+        height: widget.shape.width,
       ),
       decoration: BoxDecoration(
         color: color ?? Color(0xff808080),
@@ -120,6 +121,14 @@ class _DotsIndicatorState extends State<WormIndicator> {
 
   @override
   Widget build(BuildContext context) {
+    assert(() {
+      if (widget.shape == null) {
+        throw FlutterError('Must define an shape for the indicator');
+      }
+
+      return true;
+    } ());
+
     return Container(
       color: Colors.transparent,
       child: Stack(
@@ -134,8 +143,7 @@ class _DotsIndicatorState extends State<WormIndicator> {
             child: DotInstance(
               length: widget.length,
               listenable: widget.controller,
-              size: widget.size,
-              spacing: widget.spacing,
+              shape: widget.shape,
               color: widget.indicatorColor,
             ),
           ),
@@ -144,4 +152,3 @@ class _DotsIndicatorState extends State<WormIndicator> {
     );
   }
 }
-
