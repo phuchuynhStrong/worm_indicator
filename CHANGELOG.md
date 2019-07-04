@@ -15,3 +15,7 @@ Initial Release
 
 - Add Rectangle Shape
 - Refactor using Shape
+
+## [0.1.1] - July 4 2019
+
+- Update version and README
