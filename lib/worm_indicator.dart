@@ -127,7 +127,7 @@ class _DotsIndicatorState extends State<WormIndicator> {
       }
 
       return true;
-    } ());
+    }());
 
     return Container(
       color: Colors.transparent,

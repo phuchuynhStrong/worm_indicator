@@ -1,6 +1,6 @@
 # Worm Indicator
 
-A pageview indicator
+A Flutter PageView indicator insprired by worm animation. It can be easily integrated with any Flutter PageView. Pull requests are welcome
 
 ## Features
 
@@ -12,7 +12,7 @@ Make sure you add the lib dependency in your flutter project.
 
 ```
 dependencies:
-  worm_indicator: 0.0.4
+  worm_indicator: 0.1.1
 ```
 
 Then you should run `flutter packages get` to update your packages in your IDE.
