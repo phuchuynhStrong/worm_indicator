@@ -49,10 +49,10 @@ Properties:
 
 ## Road map
 This is the plan toward 1.0 release
-- [] Add more shape configuration of the dots
-- [] Add more transition animation with worm-style
-- [] Add more detail documentation
-- [] Write more specific example projects
+- [ ] Add more shape configuration of the dots
+- [ ] Add more transition animation with worm-style
+- [ ] Add more detail documentation
+- [ ] Write more specific example projects
 
 ## Support
 
