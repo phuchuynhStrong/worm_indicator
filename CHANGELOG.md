@@ -10,3 +10,19 @@ Initial Release
 ## [0.0.4] - Feb 11 2019
 
 - Update README
+
+## [0.1.0] - Feb 22 2019
+
+- Add Rectangle Shape
+- Refactor using Shape
+
+## [0.1.1] - July 4 2019
+
+- Update version and README
+
+## [0.2.0] - Aug 9 2019
+
+- Fix bug that display wrong normal dots with Rectangle and Square Shape
+- Fix bug that display wrong animation
+- Clean code
+- Update README

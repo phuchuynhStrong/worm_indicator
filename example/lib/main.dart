@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:worm_indicator/shape.dart';
 import 'package:worm_indicator/worm_indicator.dart';
 
 void main() => runApp(MyApp());
@@ -27,7 +28,6 @@ class MyApp extends StatelessWidget {
 }
 
 class Example extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() => _ExampleState();
 }
@@ -35,41 +35,76 @@ class Example extends StatefulWidget {
 class _ExampleState extends State<Example> {
   PageController _controller;
 
-
   @override
   void initState() {
     super.initState();
-    _controller = PageController(
-      viewportFraction: 0.8,
+    _controller = PageController();
+  }
+
+  Widget buildPageView() {
+    return PageView.builder(
+      physics: AlwaysScrollableScrollPhysics(),
+      controller: _controller,
+      itemBuilder: (BuildContext context, int pos) {
+        return Container(
+          margin: EdgeInsets.all(20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                "Worm Indicator - Page $pos",
+                style: TextStyle(
+                  fontSize: 25,
+                  color: Colors.black,
+                ),
+              )
+            ],
+          ),
+        );
+      },
+      itemCount: 3,
+    );
+  }
+
+  Widget buildExampleIndicatorWithShapeAndBottomPos(
+      Shape shape, double bottomPos) {
+    return Positioned(
+      bottom: bottomPos,
+      left: 0,
+      right: 0,
+      child: WormIndicator(
+        length: 3,
+        controller: _controller,
+        shape: shape,
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final circleShape = Shape(
+      size: 16,
+      shape: DotShape.Circle,
+      spacing: 8,
+    );
+    final squareShape = Shape(
+      size: 16,
+      shape: DotShape.Square,
+      spacing: 8,
+    );
+    final rectangleShape = Shape(
+      width: 16,
+      height: 24,
+      shape: DotShape.Rectangle,
+      spacing: 8,
+    );
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          PageView.builder(
-            controller: _controller,
-            itemBuilder: (BuildContext context, int pos) {
-              return Container(
-                margin: EdgeInsets.all(20),
-                child: Image.asset("lib/wall-${pos + 1}.jpg"),
-              );
-            },
-            itemCount: 3,
-          ),
-          Positioned(
-            bottom: 20,
-            left: 0,
-            right: 0,
-            child: WormIndicator(
-              length: 3,
-              controller: _controller,
-              size: 16,
-              spacing: 8,
-            ),
-          ),
+          buildPageView(),
+          buildExampleIndicatorWithShapeAndBottomPos(circleShape, 20),
+          buildExampleIndicatorWithShapeAndBottomPos(squareShape, 56),
+          buildExampleIndicatorWithShapeAndBottomPos(rectangleShape, 100),
         ],
       ),
     );

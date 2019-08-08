@@ -1,6 +1,6 @@
 # Worm Indicator
 
-A pageview indicator
+A Flutter PageView indicator insprired by worm animation. It can be easily integrated with any Flutter PageView. Pull requests are welcome
 
 ## Features
 
@@ -12,7 +12,7 @@ Make sure you add the lib dependency in your flutter project.
 
 ```
 dependencies:
-  worm_indicator: 0.1.1
+  worm_indicator: 0.2.0
 ```
 
 Then you should run `flutter packages get` to update your packages in your IDE.
@@ -27,12 +27,30 @@ Screenshot:
 
 ## Usage
 
+`Circle` and `Square` `DotShape` need size. `Rectangle` `DotShape` need width and height.
+
 ```
 WormIndicator(
-  length: PAGE_VIEW_SIZE,
-  controller: PAGE_VIEW_CONTROLLER,
-  size: DOT_SIZE_IN_PT,
-  spacing: DOT_SPACING_IN_PT,
+  length: 3,
+  controller: _controller,
+  shape: Shape(
+    size: 16,
+    spacing: 8,
+    shape: DotShape.Circle  // Similar for Square
+  ),
+),
+```
+
+```
+WormIndicator(
+  length: 3,
+  controller: _controller,
+  shape: Shape(
+    width: 16,
+    height: 24,
+    spacing: 8,
+    shape: DotShape.Rectangle
+  ),
 ),
 ```
 
@@ -42,17 +60,19 @@ Properties:
 |---|---|---|
 |`length`| Number of dots |`int`|
 |`controller`| PageView controller |`PageController`|
-|`size`| Size of a dot |`int`|
-|`spacing`| Spacing between dots |`int`|
+|`shape`| Shape of dots |`Shape`|
 |`color`| Color of normal dots |`Color`|
 |`indicatorColor`| Color of current active dot |`Color`|
 
-## Road map
-This is the plan toward 1.0 release
-- [ ] Add more shape configuration of the dots
-- [ ] Add more transition animation with worm-style
-- [ ] Add more detail documentation
-- [ ] Write more specific example projects
+Shape Constructor:
+
+|Name|Usage|Type|
+|---|---|---|
+|`width`| Width of dot (required if shape is Rectange)|`double`|
+|`height`| Height of dot (required if shape is Rectange)|`double`|
+|`size`| Size of dot (required if shape is Circle or Square)|`double`|
+|`spacing`| Spacing between dots |`double`|
+|`shape`| Shape of dots. One of Circle, Rectangle and Square |`DotShape`|
 
 ## Support
 
