@@ -3,13 +3,15 @@ import 'package:flutter/physics.dart';
 
 import 'shape.dart';
 
+const defaultActiveDotColor = Color(0xff35affc);
+
 class DotInstance extends StatefulWidget {
   DotInstance({
     Key key,
     @required this.listenable,
     @required this.length,
     this.shape,
-    this.color = const Color(0xff35affc),
+    this.color = defaultActiveDotColor,
   }) : super(key: key);
 
   final PageController listenable;
@@ -34,9 +36,7 @@ class DotInstanceState extends State<DotInstance>
   SpringSimulation springSimulation;
   AnimationController animationController;
 
-  @override
-  void initState() {
-    super.initState();
+  void setUpWidgetListenable() {
     widget.listenable.addListener(() {
       setState(() {
         _offset = widget.listenable.page;
@@ -45,12 +45,21 @@ class DotInstanceState extends State<DotInstance>
         }
       });
     });
+  }
 
+  void setUpAnimationController() {
     animationController = new AnimationController(
       vsync: this,
       lowerBound: double.negativeInfinity,
       upperBound: double.infinity,
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setUpWidgetListenable();
+    setUpAnimationController();
   }
 
   double getMargin(context, length) {
@@ -61,16 +70,16 @@ class DotInstanceState extends State<DotInstance>
         2;
     if (_offset >= _page) {
       return leftMargin + (widget.shape.width + widget.shape.spacing) * _page;
-    } else {
-      return leftMargin + (widget.shape.width + widget.shape.spacing) * _offset;
     }
+
+    return leftMargin + (widget.shape.width + widget.shape.spacing) * _offset;
   }
 
   BoxDecoration _getBoxDecoration(Shape dotShape) {
     switch (dotShape.shape) {
       case DotShape.Circle:
         return BoxDecoration(
-          color: widget.color ?? Color(0xff35affc),
+          color: widget.color ?? defaultActiveDotColor,
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(
             widget.shape.size / 2,
@@ -79,14 +88,16 @@ class DotInstanceState extends State<DotInstance>
       case DotShape.Rectangle:
       case DotShape.Square:
         return BoxDecoration(
-          color: widget.color ?? Color(0xff35affc),
+          color: widget.color ?? defaultActiveDotColor,
           shape: BoxShape.rectangle,
         );
       default:
         return BoxDecoration(
-          color: widget.color ?? Color(0xff35affc),
+          color: widget.color ?? defaultActiveDotColor,
           shape: BoxShape.rectangle,
-          borderRadius: BorderRadius.circular(widget.shape.width / 2),
+          borderRadius: BorderRadius.circular(
+            widget.shape.width / 2,
+          ),
         );
     }
   }
@@ -95,7 +106,9 @@ class DotInstanceState extends State<DotInstance>
   Widget build(BuildContext context) {
     final width = (_offset - _page).abs().toDouble();
     return Container(
-      margin: EdgeInsets.only(left: getMargin(context, widget.length)),
+      margin: EdgeInsets.only(
+        left: getMargin(context, widget.length),
+      ),
       child: Container(
         width: width <= floorRange
             ? widget.shape.width

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'dot.dart';
 import 'shape.dart';
 
+const defaultNormalDotColor = Color(0xff808080);
+
 class WormIndicator extends StatefulWidget {
   WormIndicator({
     Key key,
@@ -26,47 +28,64 @@ class WormIndicator extends StatefulWidget {
 }
 
 class _DotsIndicatorState extends State<WormIndicator> {
+  Container getNormalDotChildContainer() {
+    switch (widget.shape.shape) {
+      case DotShape.Circle:
+        return Container(
+          width: widget.shape.size,
+          height: widget.shape.size,
+        );
+      default:
+        return Container(
+          width: widget.shape.width,
+          height: widget.shape.height,
+        );
+    }
+  }
+
+  BoxDecoration getNormalDotDecoration(Color color) {
+    switch (widget.shape.shape) {
+      case DotShape.Circle:
+        return BoxDecoration(
+          color: color ?? Color(0xff35affc),
+          shape: BoxShape.circle,
+        );
+      case DotShape.Square:
+      case DotShape.Rectangle:
+        return BoxDecoration(
+          color: color ?? Color(0xff35affc),
+          shape: BoxShape.rectangle,
+        );
+      default:
+        return BoxDecoration(
+          color: color ?? Color(0xff35affc),
+          shape: BoxShape.circle,
+        );
+    }
+  }
+
   Widget buildDot(color, index) {
     if ((widget.length % 2 == 1 && index == (widget.length ~/ 2)) ||
         index == -1) {
       return Container(
-        child: Container(
-          width: widget.shape.width,
-          height: widget.shape.width,
-        ),
-        decoration: BoxDecoration(
-          color: color ?? Color(0xff35affc),
-          shape: BoxShape.circle,
-        ),
+        child: getNormalDotChildContainer(),
+        decoration: getNormalDotDecoration(color),
       );
     }
 
     if (widget.length % 2 == 1 && index < (widget.length ~/ 2)) {
       return Container(
         margin: EdgeInsets.only(right: widget.shape.spacing),
-        child: Container(
-          width: widget.shape.width,
-          height: widget.shape.width,
-        ),
-        decoration: BoxDecoration(
-          color: color ?? Color(0xff35affc),
-          shape: BoxShape.circle,
-        ),
+        child: getNormalDotChildContainer(),
+        decoration: getNormalDotDecoration(color),
       );
     }
 
     if (widget.length % 2 == 1 && index > (widget.length ~/ 2)) {
       return Container(
         margin: EdgeInsets.only(left: widget.shape.spacing),
-        child: Container(
-          width: widget.shape.width,
-          height: widget.shape.width,
-        ),
-        decoration: BoxDecoration(
-          // color: Color(0xff35affc),
-          color: color ?? Color(0xff35affc),
-          shape: BoxShape.circle,
-        ),
+        child: getNormalDotChildContainer(),
+        decoration: getNormalDotDecoration(color),
       );
     }
 
@@ -74,61 +93,35 @@ class _DotsIndicatorState extends State<WormIndicator> {
         index == -1) {
       return Container(
         margin: EdgeInsets.only(right: widget.shape.spacing),
-        child: Container(
-          width: widget.shape.width,
-          height: widget.shape.width,
-        ),
-        decoration: BoxDecoration(
-          color: color ?? Color(0xff35affc),
-          shape: BoxShape.circle,
-        ),
+        child: getNormalDotChildContainer(),
+        decoration: getNormalDotDecoration(color),
       );
     }
 
     if (widget.length % 2 == 0 && index > (widget.length ~/ 2)) {
       return Container(
         margin: EdgeInsets.only(left: widget.shape.spacing),
-        child: Container(
-          width: widget.shape.width,
-          height: widget.shape.width,
-        ),
-        decoration: BoxDecoration(
-          color: color ?? Color(0xff35affc),
-          shape: BoxShape.circle,
-        ),
+        child: getNormalDotChildContainer(),
+        decoration: getNormalDotDecoration(color),
       );
     }
 
     return Container(
-      child: Container(
-        width: widget.shape.width,
-        height: widget.shape.width,
-      ),
-      decoration: BoxDecoration(
-        color: color ?? Color(0xff808080),
-        shape: BoxShape.circle,
-      ),
+      child: getNormalDotChildContainer(),
+      decoration: getNormalDotDecoration(color),
     );
   }
 
   List<Widget> _renderNormalDots() {
     var listDots = List<Widget>();
     for (int i = 0; i < widget.length; i++) {
-      listDots.add(buildDot(widget.color ?? (0xff808080), i));
+      listDots.add(buildDot(widget.color ?? defaultNormalDotColor, i));
     }
     return listDots;
   }
 
   @override
   Widget build(BuildContext context) {
-    assert(() {
-      if (widget.shape == null) {
-        throw FlutterError('Must define an shape for the indicator');
-      }
-
-      return true;
-    }());
-
     return Container(
       color: Colors.transparent,
       child: Stack(
