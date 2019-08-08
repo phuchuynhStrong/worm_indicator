@@ -26,8 +26,11 @@ class DotInstanceState extends State<DotInstance>
   double _page = 0;
   final ceilRange = 0.999999;
   final floorRange = 0.0001;
-  SpringDescription spring =
-      SpringDescription(mass: 1.0, stiffness: 100.0, damping: 10.0);
+  SpringDescription spring = SpringDescription(
+    mass: 1.0,
+    stiffness: 100.0,
+    damping: 10.0,
+  );
   SpringSimulation springSimulation;
   AnimationController animationController;
 
@@ -68,7 +71,10 @@ class DotInstanceState extends State<DotInstance>
       case DotShape.Circle:
         return BoxDecoration(
           color: widget.color ?? Color(0xff35affc),
-          shape: BoxShape.circle,
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.circular(
+            widget.shape.size / 2,
+          ),
         );
       case DotShape.Rectangle:
       case DotShape.Square:
