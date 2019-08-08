@@ -12,7 +12,7 @@ Make sure you add the lib dependency in your flutter project.
 
 ```
 dependencies:
-  worm_indicator: 0.1.1
+  worm_indicator: 0.2.0
 ```
 
 Then you should run `flutter packages get` to update your packages in your IDE.
@@ -23,15 +23,29 @@ Checkout the project inside `example` folder.
 
 ## Usage
 
+`Circle` and `Square` `DotShape` need size. `Rectangle` `DotShape` need width and height.
+
 ```
 WormIndicator(
   length: 3,
   controller: _controller,
   shape: Shape(
-    16, // Width
-    16, // Height
-    8, // Spacing
-    DotShape.Circle
+    size: 16,
+    spacing: 8,
+    shape: DotShape.Circle  // Similar for Square
+  ),
+),
+```
+
+```
+WormIndicator(
+  length: 3,
+  controller: _controller,
+  shape: Shape(
+    width: 16,
+    height: 24,
+    spacing: 8,
+    shape: DotShape.Rectangle
   ),
 ),
 ```
@@ -50,8 +64,9 @@ Shape Constructor:
 
 |Name|Usage|Type|
 |---|---|---|
-|`width`| Width of dot |`double`|
-|`height`| Height of dot |`double`|
+|`width`| Width of dot (required if shape is Rectange)|`double`|
+|`height`| Height of dot (required if shape is Rectange)|`double`|
+|`size`| Size of dot (required if shape is Circle or Square)|`double`|
 |`spacing`| Spacing between dots |`double`|
 |`shape`| Shape of dots. One of Circle, Rectangle and Square |`DotShape`|
 
