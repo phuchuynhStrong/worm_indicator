@@ -26,8 +26,7 @@ class DotInstanceState extends State<DotInstance>
     with SingleTickerProviderStateMixin {
   double _offset = 0;
   double _page = 0;
-  final ceilRange = 0.999999;
-  final floorRange = 0.0001;
+  final floorRange = 0.000001;
   SpringDescription spring = SpringDescription(
     mass: 1.0,
     stiffness: 100.0,
@@ -40,7 +39,13 @@ class DotInstanceState extends State<DotInstance>
     widget.listenable.addListener(() {
       setState(() {
         _offset = widget.listenable.page;
-        if ((_offset - _page).abs().toDouble() >= ceilRange) {
+
+        if (_offset >= _page && (_offset == _page + 1)) {
+          _page = _offset;
+          return;
+        }
+        
+        if (_offset <= _page && (_offset == _page - 1)) {
           _page = _offset;
         }
       });

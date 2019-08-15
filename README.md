@@ -12,7 +12,7 @@ Make sure you add the lib dependency in your flutter project.
 
 ```
 dependencies:
-  worm_indicator: 0.2.0
+  worm_indicator: 0.2.1
 ```
 
 Then you should run `flutter packages get` to update your packages in your IDE.
