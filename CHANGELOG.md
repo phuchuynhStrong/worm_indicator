@@ -26,3 +26,7 @@ Initial Release
 - Fix bug that display wrong animation
 - Clean code
 - Update README
+
+## [0.2.1] - Aug 15 2019
+- Update Page Controller due to Flutter error merged (https://github.com/flutter/flutter/pull/34519/files)
+- Update README
