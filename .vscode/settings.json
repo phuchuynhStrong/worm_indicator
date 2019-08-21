@@ -5,7 +5,7 @@
       "base": "develop"
     },
     {
-      "name": "feature/transform_into_stateless",
+      "name": "feature/animation_after_srolling",
       "base": "develop"
     }
   ],

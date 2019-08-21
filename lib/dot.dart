@@ -25,7 +25,9 @@ class DotInstance extends StatefulWidget {
 class DotInstanceState extends State<DotInstance>
     with SingleTickerProviderStateMixin {
   double _offset = 0;
+  double _nextPageToAnimate = 0;
   double _page = 0;
+  bool _isAnimating = false;
   final floorRange = 0.000001;
   SpringDescription spring = SpringDescription(
     mass: 1.0,
@@ -35,19 +37,32 @@ class DotInstanceState extends State<DotInstance>
   SpringSimulation springSimulation;
   AnimationController animationController;
 
+  void setAnimatingEnable() {
+    _isAnimating = true;
+  }
+
+  void setAnimatingDisabled() {
+    _isAnimating = false;
+  }
+
   void setUpWidgetListenable() {
     widget.listenable.addListener(() {
-      if (mounted) {
+      if (mounted && !_isAnimating) {
         setState(() {
           _offset = widget.listenable.page;
 
-          if (_offset >= _page && (_offset == _page + 1)) {
-            _page = _offset;
+          if (_offset >= _page && _offset.floor() >= _page.ceil() + 1) {
+            _nextPageToAnimate = _offset.floor().toDouble();
+            setAnimatingEnable();
+            animationController.forward();
             return;
           }
 
-          if (_offset <= _page && (_offset == _page - 1)) {
-            _page = _offset;
+          if (_offset <= _page && _offset <= _page.ceil() - 1) {
+            _nextPageToAnimate = _offset.ceil().toDouble();
+            setAnimatingEnable();
+            animationController.forward();
+            return;
           }
         });
       }
@@ -57,9 +72,29 @@ class DotInstanceState extends State<DotInstance>
   void setUpAnimationController() {
     animationController = new AnimationController(
       vsync: this,
-      lowerBound: double.negativeInfinity,
-      upperBound: double.infinity,
-    );
+      duration: const Duration(
+        milliseconds: 150,
+      ),
+    )
+      ..addListener(() {
+        setState(() {
+          if (_nextPageToAnimate > _page) {
+            _page = _nextPageToAnimate - 1 + animationController.value;
+          }
+
+          if (_nextPageToAnimate < _page) {
+            _page = _nextPageToAnimate + 1 - animationController.value;
+          }
+        });
+      })
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          animationController.reset();
+          setState(() {
+            setAnimatingDisabled();
+          });
+        }
+      });
   }
 
   @override
@@ -112,16 +147,17 @@ class DotInstanceState extends State<DotInstance>
   @override
   Widget build(BuildContext context) {
     final width = (_offset - _page).abs().toDouble();
+    final calculatedWidth = width <= floorRange
+        ? widget.shape.width
+        : widget.shape.width +
+            (widget.shape.width + widget.shape.spacing) *
+                (_offset - _page).abs().toDouble();
     return Container(
       margin: EdgeInsets.only(
         left: getMargin(context, widget.length),
       ),
       child: Container(
-        width: width <= floorRange
-            ? widget.shape.width
-            : widget.shape.width +
-                (widget.shape.width + widget.shape.spacing) *
-                    (_offset - _page).abs().toDouble(),
+        width: calculatedWidth,
         height: widget.shape.height,
       ),
       decoration: _getBoxDecoration(widget.shape),

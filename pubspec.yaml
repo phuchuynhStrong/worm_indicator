@@ -1,6 +1,6 @@
 name: worm_indicator
 description: A Flutter PageView indicator insprired by worm animation. It can be easily integrated with any Flutter PageView. Pull requests are welcome
-version: 0.2.3
+version: 0.2.4
 author: phuchuynhStrong <phuchuynh.strong@gmail.com>
 homepage: https://github.com/phuchuynhStrong/worm_indicator
 
