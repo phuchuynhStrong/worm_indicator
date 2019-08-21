@@ -37,3 +37,6 @@ Initial Release
 ## [0.2.3] - Aug 20 2019
 - Add mounted check before setState in DotInstance
 - Change component into Stateless Widget
+
+## [0.2.4] - Aug 20 2019
+- Add animation after scrolling to new page
