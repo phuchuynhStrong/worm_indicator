@@ -3,12 +3,11 @@
     {
       "name": "feature/adapter_flutter_page_controller_fix",
       "base": "develop"
-    }
-  ],
-  "gitflow4code.hotfixes": [
+    },
     {
-      "name": "hotfix/fix_dot_wrong_state",
+      "name": "feature/transform_into_stateless",
       "base": "develop"
     }
-  ]
+  ],
+  "gitflow4code.hotfixes": []
 }

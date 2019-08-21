@@ -36,3 +36,4 @@ Initial Release
 
 ## [0.2.3] - Aug 20 2019
 - Add mounted check before setState in DotInstance
+- Change component into Stateless Widget
