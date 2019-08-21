@@ -32,4 +32,7 @@ Initial Release
 - Update README
 
 ## [0.2.2] - Aug 20 2019
+- Update CHANGELOG
+
+## [0.2.3] - Aug 20 2019
 - Add mounted check before setState in DotInstance
