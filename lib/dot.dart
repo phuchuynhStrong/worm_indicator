@@ -37,18 +37,20 @@ class DotInstanceState extends State<DotInstance>
 
   void setUpWidgetListenable() {
     widget.listenable.addListener(() {
-      setState(() {
-        _offset = widget.listenable.page;
+      if (mounted) {
+        setState(() {
+          _offset = widget.listenable.page;
 
-        if (_offset >= _page && (_offset == _page + 1)) {
-          _page = _offset;
-          return;
-        }
-        
-        if (_offset <= _page && (_offset == _page - 1)) {
-          _page = _offset;
-        }
-      });
+          if (_offset >= _page && (_offset == _page + 1)) {
+            _page = _offset;
+            return;
+          }
+
+          if (_offset <= _page && (_offset == _page - 1)) {
+            _page = _offset;
+          }
+        });
+      }
     });
   }
 
