@@ -21,7 +21,9 @@ class WormIndicator extends StatelessWidget {
     this.color,
     this.indicatorColor,
     this.shape,
-  }) : super(key: key);
+  })  : assert(length > 0),
+        assert(controller != null),
+        super(key: key);
 
   Container getNormalDotChildContainer() {
     switch (this.shape.shape) {
@@ -60,8 +62,7 @@ class WormIndicator extends StatelessWidget {
   }
 
   Widget buildDot(color, index) {
-    if ((this.length % 2 == 1 && index == (this.length ~/ 2)) ||
-        index == -1) {
+    if ((this.length % 2 == 1 && index == (this.length ~/ 2)) || index == -1) {
       return Container(
         child: getNormalDotChildContainer(),
         decoration: getNormalDotDecoration(color),
@@ -84,8 +85,7 @@ class WormIndicator extends StatelessWidget {
       );
     }
 
-    if ((this.length % 2 == 0 && index < (this.length ~/ 2)) ||
-        index == -1) {
+    if ((this.length % 2 == 0 && index < (this.length ~/ 2)) || index == -1) {
       return Container(
         margin: EdgeInsets.only(right: this.shape.spacing),
         child: getNormalDotChildContainer(),
