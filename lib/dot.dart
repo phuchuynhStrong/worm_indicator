@@ -7,16 +7,16 @@ const defaultActiveDotColor = Color(0xff35affc);
 
 class DotInstance extends StatefulWidget {
   DotInstance({
-    Key key,
-    @required this.listenable,
-    @required this.length,
-    this.shape,
+    Key? key,
+    this.listenable,
+    required this.length,
+    required this.shape,
     this.color = defaultActiveDotColor,
   }) : super(key: key);
 
-  final PageController listenable;
+  final PageController? listenable;
   final int length;
-  final Color color;
+  final Color? color;
   final Shape shape;
   @override
   State<StatefulWidget> createState() => DotInstanceState();
@@ -24,7 +24,7 @@ class DotInstance extends StatefulWidget {
 
 class DotInstanceState extends State<DotInstance>
     with SingleTickerProviderStateMixin {
-  double _offset = 0;
+  double? _offset = 0;
   double _nextPageToAnimate = 0;
   double _page = 0;
   bool _isAnimating = false;
@@ -34,8 +34,8 @@ class DotInstanceState extends State<DotInstance>
     stiffness: 100.0,
     damping: 10.0,
   );
-  SpringSimulation springSimulation;
-  AnimationController animationController;
+  SpringSimulation? springSimulation;
+  late AnimationController animationController;
 
   void setAnimatingEnable() {
     _isAnimating = true;
@@ -46,20 +46,20 @@ class DotInstanceState extends State<DotInstance>
   }
 
   void setUpWidgetListenable() {
-    widget.listenable.addListener(() {
+    widget.listenable?.addListener(() {
       if (mounted && !_isAnimating) {
         setState(() {
-          _offset = widget.listenable.page;
+          _offset = widget.listenable?.page;
 
-          if (_offset >= _page && _offset.floor() >= _page.ceil() + 1) {
-            _nextPageToAnimate = _offset.floor().toDouble();
+          if (_offset! >= _page && _offset!.floor() >= _page.ceil() + 1) {
+            _nextPageToAnimate = _offset!.floor().toDouble();
             setAnimatingEnable();
             animationController.forward();
             return;
           }
 
-          if (_offset <= _page && _offset <= _page.ceil() - 1) {
-            _nextPageToAnimate = _offset.ceil().toDouble();
+          if (_offset! <= _page && _offset! <= _page.ceil() - 1) {
+            _nextPageToAnimate = _offset!.ceil().toDouble();
             setAnimatingEnable();
             animationController.forward();
             return;
@@ -104,17 +104,24 @@ class DotInstanceState extends State<DotInstance>
     setUpAnimationController();
   }
 
+  @override
+  void dispose() { 
+    animationController.dispose();
+    super.dispose();
+  }
+
   double getMargin(context, length) {
     double width = MediaQuery.of(context).size.width;
     var leftMargin = (width -
             length * widget.shape.width -
             (length - 1) * widget.shape.spacing) /
         2;
-    if (_offset >= _page) {
-      return leftMargin + (widget.shape.width + widget.shape.spacing) * _page;
+    if (_offset! >= _page) {
+      return leftMargin + (widget.shape.width! + widget.shape.spacing!) * _page;
     }
 
-    return leftMargin + (widget.shape.width + widget.shape.spacing) * _offset;
+    return leftMargin +
+        (widget.shape.width! + widget.shape.spacing!) * _offset!;
   }
 
   BoxDecoration _getBoxDecoration(Shape dotShape) {
@@ -124,7 +131,7 @@ class DotInstanceState extends State<DotInstance>
           color: widget.color ?? defaultActiveDotColor,
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(
-            widget.shape.size / 2,
+            widget.shape.size! / 2,
           ),
         );
       case DotShape.Rectangle:
@@ -138,7 +145,7 @@ class DotInstanceState extends State<DotInstance>
           color: widget.color ?? defaultActiveDotColor,
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(
-            widget.shape.width / 2,
+            widget.shape.width! / 2,
           ),
         );
     }
@@ -146,12 +153,12 @@ class DotInstanceState extends State<DotInstance>
 
   @override
   Widget build(BuildContext context) {
-    final width = (_offset - _page).abs().toDouble();
+    final width = (_offset! - _page).abs().toDouble();
     final calculatedWidth = width <= floorRange
         ? widget.shape.width
-        : widget.shape.width +
-            (widget.shape.width + widget.shape.spacing) *
-                (_offset - _page).abs().toDouble();
+        : widget.shape.width! +
+            (widget.shape.width! + widget.shape.spacing!) *
+                (_offset! - _page).abs().toDouble();
     return Container(
       margin: EdgeInsets.only(
         left: getMargin(context, widget.length),
