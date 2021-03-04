@@ -5,7 +5,7 @@ import 'package:worm_indicator/shape.dart';
 void main() {
     group("Shape", () {
       test("Constructor: Must have a shape", () {
-        expect(() => Shape(), throwsAssertionError);
+        expect(() => Shape(shape: null), throwsAssertionError);
         expect(() => Shape(shape: null), throwsAssertionError);
       });
 

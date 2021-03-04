@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 enum DotShape { Circle, Square, Rectangle }
 const double invalidSize = -1.0;
 
@@ -9,7 +7,7 @@ class Shape {
       this.height,
       this.size,
       this.spacing,
-      @required this.shape}) {
+      required this.shape}) {
     _throwAssertionErrorIfInvalidShape();
     _throwArgumentErrorIfMissingSizeArgumentForCircleOrSquareShape();
     _throwArgumentErrorIfMissingWidthOrHeightForRectangleShape();
@@ -56,11 +54,11 @@ class Shape {
     }
   }
 
-  double width;
-  double height;
-  double size;
-  final double spacing;
-  final DotShape shape;
+  double? width;
+  double? height;
+  double? size;
+  final double? spacing;
+  final DotShape? shape;
 
   static final defaultShape =
       Shape(size: 16.0, spacing: 8.0, shape: DotShape.Circle);

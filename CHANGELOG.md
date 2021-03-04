@@ -30,3 +30,17 @@ Initial Release
 ## [0.2.1] - Aug 15 2019
 - Update Page Controller due to Flutter error merged (https://github.com/flutter/flutter/pull/34519/files)
 - Update README
+
+## [0.2.2] - Aug 20 2019
+- Update CHANGELOG
+
+## [0.2.3] - Aug 20 2019
+- Add mounted check before setState in DotInstance
+- Change component into Stateless Widget
+
+## [0.2.4] - Aug 20 2019
+- Add animation after scrolling to new page
+
+## [0.3.0] - Mar 4 2021
+- Migrate to null-safety
+- Add animation controller disposal

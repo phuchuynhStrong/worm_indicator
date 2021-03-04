@@ -7,44 +7,40 @@ import 'shape.dart';
 
 const defaultNormalDotColor = Color(0xff808080);
 
-class WormIndicator extends StatefulWidget {
-  WormIndicator({
-    Key key,
-    @required this.length,
-    this.controller,
-    this.shape,
-    this.color = const Color(0xff808080),
-    this.indicatorColor = const Color(0xff35affc),
-  }) : super(key: key);
-
+class WormIndicator extends StatelessWidget {
   final int length;
-  final PageController controller;
-  final Color color;
-  final Color indicatorColor;
-  final Shape shape;
+  final PageController? controller;
+  final Color? color;
+  final Color? indicatorColor;
+  final Shape? shape;
 
-  @override
-  State<StatefulWidget> createState() => _DotsIndicatorState();
-}
+  const WormIndicator({
+    Key? key,
+    required this.length,
+    this.controller,
+    this.color,
+    this.indicatorColor,
+    this.shape,
+  })  : assert(length > 0),
+        super(key: key);
 
-class _DotsIndicatorState extends State<WormIndicator> {
   Container getNormalDotChildContainer() {
-    switch (widget.shape.shape) {
+    switch (this.shape!.shape) {
       case DotShape.Circle:
         return Container(
-          width: widget.shape.size,
-          height: widget.shape.size,
+          width: this.shape!.size,
+          height: this.shape!.size,
         );
       default:
         return Container(
-          width: widget.shape.width,
-          height: widget.shape.height,
+          width: this.shape!.width,
+          height: this.shape!.height,
         );
     }
   }
 
-  BoxDecoration getNormalDotDecoration(Color color) {
-    switch (widget.shape.shape) {
+  BoxDecoration getNormalDotDecoration(Color? color) {
+    switch (this.shape!.shape) {
       case DotShape.Circle:
         return BoxDecoration(
           color: color ?? Color(0xff35affc),
@@ -64,43 +60,41 @@ class _DotsIndicatorState extends State<WormIndicator> {
     }
   }
 
-  Widget buildDot(color, index) {
-    if ((widget.length % 2 == 1 && index == (widget.length ~/ 2)) ||
-        index == -1) {
+  Widget buildDot(Color? color, index) {
+    if ((this.length % 2 == 1 && index == (this.length ~/ 2)) || index == -1) {
       return Container(
         child: getNormalDotChildContainer(),
         decoration: getNormalDotDecoration(color),
       );
     }
 
-    if (widget.length % 2 == 1 && index < (widget.length ~/ 2)) {
+    if (this.length % 2 == 1 && index < (this.length ~/ 2)) {
       return Container(
-        margin: EdgeInsets.only(right: widget.shape.spacing),
+        margin: EdgeInsets.only(right: this.shape!.spacing!),
         child: getNormalDotChildContainer(),
         decoration: getNormalDotDecoration(color),
       );
     }
 
-    if (widget.length % 2 == 1 && index > (widget.length ~/ 2)) {
+    if (this.length % 2 == 1 && index > (this.length ~/ 2)) {
       return Container(
-        margin: EdgeInsets.only(left: widget.shape.spacing),
+        margin: EdgeInsets.only(left: this.shape!.spacing!),
         child: getNormalDotChildContainer(),
         decoration: getNormalDotDecoration(color),
       );
     }
 
-    if ((widget.length % 2 == 0 && index < (widget.length ~/ 2)) ||
-        index == -1) {
+    if ((this.length % 2 == 0 && index < (this.length ~/ 2)) || index == -1) {
       return Container(
-        margin: EdgeInsets.only(right: widget.shape.spacing),
+        margin: EdgeInsets.only(right: this.shape!.spacing!),
         child: getNormalDotChildContainer(),
         decoration: getNormalDotDecoration(color),
       );
     }
 
-    if (widget.length % 2 == 0 && index > (widget.length ~/ 2)) {
+    if (this.length % 2 == 0 && index > (this.length ~/ 2)) {
       return Container(
-        margin: EdgeInsets.only(left: widget.shape.spacing),
+        margin: EdgeInsets.only(left: this.shape!.spacing!),
         child: getNormalDotChildContainer(),
         decoration: getNormalDotDecoration(color),
       );
@@ -113,9 +107,9 @@ class _DotsIndicatorState extends State<WormIndicator> {
   }
 
   List<Widget> _renderNormalDots() {
-    var listDots = List<Widget>();
-    for (int i = 0; i < widget.length; i++) {
-      listDots.add(buildDot(widget.color ?? defaultNormalDotColor, i));
+    var listDots = <Widget>[];
+    for (int i = 0; i < this.length; i++) {
+      listDots.add(buildDot(this.color ?? defaultNormalDotColor, i));
     }
     return listDots;
   }
@@ -134,10 +128,10 @@ class _DotsIndicatorState extends State<WormIndicator> {
           ),
           Container(
             child: DotInstance(
-              length: widget.length,
-              listenable: widget.controller,
-              shape: widget.shape,
-              color: widget.indicatorColor,
+              length: this.length,
+              listenable: this.controller,
+              shape: this.shape!,
+              color: this.indicatorColor,
             ),
           ),
         ],

@@ -3,6 +3,11 @@
     {
       "name": "feature/adapter_flutter_page_controller_fix",
       "base": "develop"
+    },
+    {
+      "name": "feature/animation_after_srolling",
+      "base": "develop"
     }
-  ]
+  ],
+  "gitflow4code.hotfixes": []
 }
