@@ -40,3 +40,7 @@ Initial Release
 
 ## [0.2.4] - Aug 20 2019
 - Add animation after scrolling to new page
+
+## [0.3.0] - Mar 4 2021
+- Migrate to null-safety
+- Add animation controller disposal
