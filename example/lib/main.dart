@@ -33,7 +33,7 @@ class Example extends StatefulWidget {
 }
 
 class _ExampleState extends State<Example> {
-  PageController _controller;
+  PageController? _controller;
 
   @override
   void initState() {

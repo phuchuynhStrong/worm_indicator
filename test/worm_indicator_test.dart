@@ -9,11 +9,5 @@ void main() {
           length: 0,
         ),
         throwsAssertionError);
-    expect(
-        () => WormIndicator(
-              length: 3,
-              controller: null,
-            ),
-        throwsAssertionError);
   });
 }
